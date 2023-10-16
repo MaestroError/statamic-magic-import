@@ -1,0 +1,31 @@
+{
+    "name": "maestroerror/statamic-magic-import",
+    "description": "Seamless, magical import experience for Statamic",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "maestroerror\\StatamicMagicImport\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "maestroerror",
+            "email": "revaz.gh@gmail.com"
+        }
+    ],
+    "support": {
+        "email": "revaz.gh@gmail.com"
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Magic Import",
+            "description": "Import JSON data into Statamic",
+            "editions": ["free"]
+        },
+        "laravel": {
+            "providers": [
+                "maestroerror\\StatamicMagicImport\\ServiceProvider"
+            ]
+        }
+    }
+}
