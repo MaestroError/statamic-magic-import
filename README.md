@@ -8,7 +8,7 @@ _This addon can work with JSON files extracted using a [statamic exporter Wordpr
 
 [collections.example.json](https://github.com/MaestroError/statamic-magic-import/blob/maestro/collections.example.json)
 
-```json
+```js
 {
   // Defining collections
   "collections": {
