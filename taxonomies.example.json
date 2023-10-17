@@ -1,0 +1,47 @@
+{
+  "taxonomies": {
+    "categories": {
+      "development": {
+        "title": "Development"
+      },
+      "outsourcing": {
+        "title": "Outsourcing"
+      },
+      "product-design": {
+        "title": "Product design"
+      },
+      "project-management": {
+        "title": "Project management"
+      },
+      "startups": {
+        "title": "Startups"
+      },
+      "tech-news": {
+        "title": "Tech news"
+      },
+      "uncategorized": {
+        "title": "Uncategorized"
+      }
+    },
+    "tags": {
+      "blog": {
+        "title": "Blog"
+      },
+      "creative": {
+        "title": "Creative"
+      },
+      "hidden": {
+        "title": "hidden"
+      },
+      "portfolio": {
+        "title": "Portfolio"
+      },
+      "theme": {
+        "title": "Theme"
+      },
+      "wordpress": {
+        "title": "WordPress"
+      }
+    }
+  }
+}

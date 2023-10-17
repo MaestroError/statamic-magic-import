@@ -6,6 +6,8 @@ _This addon can work with JSON files extracted using a [statamic exporter Wordpr
 
 ## Json import
 
+**JSON file examples:**
+
 [collections.example.json](https://github.com/MaestroError/statamic-magic-import/blob/maestro/collections.example.json)
 
 ```js
@@ -31,6 +33,42 @@ _This addon can work with JSON files extracted using a [statamic exporter Wordpr
     }
   }
 }
+```
+
+[taxonomies.example.json](https://github.com/MaestroError/statamic-magic-import/blob/maestro/taxonomies.example.json)
+
+```js
+{
+  // Defining taxonomies
+  "taxonomies": {
+    // Taxonomy name
+    "categories": {
+      // Taxonomy terms and titles:
+      "development": {
+        "title": "Development"
+      },
+      "outsourcing": {
+        "title": "Outsourcing"
+      },
+      "product-design": {
+        "title": "Product design"
+      },
+      "project-management": {
+        "title": "Project management"
+      },
+      "startups": {
+        "title": "Startups"
+      },
+      "tech-news": {
+        "title": "Tech news"
+      },
+      "uncategorized": {
+        "title": "Uncategorized"
+      }
+    }
+  }
+}
+
 ```
 
 ## Features
