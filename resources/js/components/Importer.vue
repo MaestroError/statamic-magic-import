@@ -305,3 +305,43 @@ export default {
   },
 };
 </script>
+
+<style>
+/* Reset the padding and margin */
+.field-pairs,
+.field-item {
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for the container that will act as a table */
+.field-pairs {
+    display: table;
+    width: 100%; /* You can adjust the width as per your need */
+    border: 1px solid gray;
+    border-collapse: collapse; /* Ensures that borders are combined */
+}
+
+/* Style for the container that will act as a table row */
+.field-pairs,
+.form-group.pb-0.field-pairs {
+    display: table-row;
+}
+
+/* Style for the container that will act as a table cell */
+.field-item,
+.existing-collection-field,
+.json-collection-field {
+    display: table-cell;
+    border: 1px solid gray;
+    padding: 8px; /* Adjust padding as per your need */
+    text-align: center; /* Center-align the text */
+    vertical-align: middle; /* Center-align vertically */
+}
+
+/* Style for the equals sign */
+.equals-to {
+    display: inline-block;
+    vertical-align: middle;
+}
+</style>

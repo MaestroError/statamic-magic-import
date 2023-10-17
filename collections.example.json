@@ -1,0 +1,17 @@
+{
+  "collections": {
+    "post": {
+      "/post/laravel-development-companies-to-look-for": {
+        "order": "2023-10-04",
+        "data": {
+          "title": "Top 10 Titles for example data",
+          "content": "<div>Some HTML content for TinyMCE or Bard fields</div>",
+          "author": "admin",
+          "featured_image": "https://example.com/images/nice-image.webp",
+          "categories": ["category_1", "category_2"],
+          "tags": ["tag_1", "tag_2", "tag_3"]
+        }
+      }
+    }
+  }
+}

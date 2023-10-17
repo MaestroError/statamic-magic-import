@@ -65,8 +65,8 @@
                             </div>
                             <div class="existing-collection" v-show="shouldShowImportForm(collectionName)">
                                 <div>
-                                    <div class="form-group pb-0">
-                                        <label for="import-type">Import in:</label>
+                                    <div class="form-group pb-3 import-in">
+                                        <label for="import-type">Importing in:</label>
                                         <select @change="setCollectionPair(collectionName, $event)"  class="form-control">
                                             <option value=""></option>
                                             @foreach($collections as $coll)
@@ -75,21 +75,31 @@
                                             </div>
                                         </select>
                                     </div>
-                                    <div class="form-group pb-0" v-for="existingField in collectionPairs[collectionName+'_fields']">
-                                        <label for="import-type existing-collection-field">@{{existingField}}</label>
-                                        =
-                                        <select id="data-options" @change="setFieldPair(collectionName, existingField, $event)"  class="form-control importing-collection-field">
-                                            <option value=""></option>
-                                            <option value="235" data-collection-name="sxva">sasg</option>
-                                            <option value="sasg" data-collection-name="yleoba">sasg</option>
-                                            @isset($summary['fields'])
-                                                @foreach($summary['fields'] as $collectionName => $fields)
-                                                    @foreach($fields as $field)
-                                                        <option value="{{$field}}" data-collection-name="{{$collectionName}}">{{$field}}</option>
+                                    <div class="field-pairs">
+                                        <div class="field-item">
+                                            Field from @{{collectionPairs[collectionName]}} collection
+                                        </div>
+                                        <div class="field-item">
+                                            Field from your JSON file
+                                        </div>
+                                    </div>
+                                    <div class="form-group pb-0 field-pairs" v-for="existingField in collectionPairs[collectionName+'_fields']">
+                                        <div class="existing-collection-field field-item">
+                                            <label for="import-type">@{{existingField}}</label>
+                                        </div>
+                                        <div class="json-collection-field field-item">
+                                            <span class="equals-to">=</span>
+                                            <select id="data-options" @change="setFieldPair(collectionName, existingField, $event)"  class="form-control importing-collection-field">
+                                                <option value=""></option>
+                                                @isset($summary['fields'])
+                                                    @foreach($summary['fields'] as $collectionName => $fields)
+                                                        @foreach($fields as $field)
+                                                            <option value="{{$field}}" data-collection-name="{{$collectionName}}">{{$field}}</option>
+                                                        @endforeach
                                                     @endforeach
-                                                @endforeach
-                                            @endisset
-                                        </select>
+                                                @endisset
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +245,7 @@
         </json-importer>
 
         <!-- VUE template end -->
+        
     </div>
 
 @endsection
