@@ -6,7 +6,32 @@ _This addon can work with JSON files extracted using a [statamic exporter Wordpr
 
 ## Json import
 
-[EXAMPLE OF JSON file]
+[collections.example.json](https://github.com/MaestroError/statamic-magic-import/blob/maestro/collections.example.json)
+
+```json
+{
+  // Defining collections
+  "collections": {
+    // Name of new collection (You can add as many collections as you need)
+    "post": {
+      // Entrie slug
+      "/post/top-10-titles": {
+        // Date of creation (here you can use "order" keyword as well)
+        "date": "2023-10-04",
+        // Fields
+        "data": {
+          "title": "Top 10 Titles for example data",
+          "content": "<div>Some HTML content for TinyMCE or Bard fields</div>",
+          "author": "admin",
+          "featured_image": "https://example.com/images/nice-image.webp", // It will download your image and add to assets
+          "categories": ["category_1", "category_2"], // Create taxonomy and import it in "Taxonomy terms" field
+          "tags": ["tag_1", "tag_2", "tag_3"] // For "Taxonomy terms" field
+        }
+      }
+    }
+  }
+}
+```
 
 ## Features
 
@@ -53,13 +78,17 @@ Go to the `Tools > Magic Import` section and upload the json file.
 
 For collections, the summary will show you 2 options: creating a new collection or importing in existing one.
 
+![statamic-json-import:creating-new-collection](https://github.com/MaestroError/statamic-magic-import/blob/maestro/resources/img/creating-new-collection.png)
+
 When importing in existing collection, you can choose JSON field for each of your collection fields.
 
 Even when creating new collection, there might be the collection with same name. If you choose to import it anyway, the content will be overwritten, but you can (De)Select anything you want (by titles) and click "Import".
 
-[ADD SCREENSHOT HERE]
+![statamic-json-import:pages-before-choice](https://github.com/MaestroError/statamic-magic-import/blob/maestro/resources/img/pages-before-choice.png)
 
-_Note: You might get timeout errors if you're importing large datasets and/or many images. _
+![statamic-json-import:collection-after-choice](https://github.com/MaestroError/statamic-magic-import/blob/maestro/resources/img/test-collection-after-choice.png)
+
+_Note: You might get timeout errors if you're importing large datasets and/or many images._
 
 ## Config
 
