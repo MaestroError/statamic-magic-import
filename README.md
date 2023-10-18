@@ -169,3 +169,8 @@ return [
 You can publish it with the command:
 
 `php artisan vendor:publish --tag=statamic-magic-import`
+
+### To Do
+
+- Featured image doesn't set (slug was "Blogs" in collection and "post" in JSON)
+- Using JSON field twice skips the first field (Was using "title" from json in "title" and "header" in collection and collection's "title" field was empty)
