@@ -38,23 +38,26 @@ class JsonImporter
             $collection_entries = [];
 
             foreach ($entries as $slug => $entry) {
+                $has_duplicates = false;
                 try {
                     if ($has_duplicates = !!Entry::query()->where('collection', $collection)->where('slug', $slug)->first()) {
                         $duplicates++;
                     }
-
-                    $collection_entries[$slug] = [
-                        'slug' => $slug,
-                        'exists' => $has_duplicates,
-                        '_checked' => true,
-                    ];
-
-                    $summary['fields'][$collection] = array_keys($entry['data']);
                 } catch (\Throwable $th) {
                     Log::error($th);
                 }
+
+                // Add collection entry
+                $collection_entries[$slug] = [
+                    'slug' => $slug,
+                    'exists' => $has_duplicates,
+                    '_checked' => true,
+                ];
+
+                $summary['fields'][$collection] = array_keys($entry['data']);
             }
 
+            // Add data in summary
             $summary['collections'][$collection] = [
                 'title' => $collection,
                 'route' => $prepared['collections'][$collection]['route'],

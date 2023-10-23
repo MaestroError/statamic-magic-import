@@ -449,10 +449,12 @@ class Migrator
 
     // Sets field data by "set_data_using_fields" config
     private function setFieldData($entry, $key, $value) {
-        if (config('statamic-magic-import.set_data_using_fields')) {
-            $entry = $this->setUsingFields($entry, $key, $value);
-        } else {
-            $entry->set($key, $value);
+        if ($value) {
+            if (config('statamic-magic-import.set_data_using_fields')) {
+                $entry = $this->setUsingFields($entry, $key, $value);
+            } else {
+                $entry->set($key, $value);
+            }
         }
         return $entry;
     }
