@@ -181,5 +181,4 @@ You can publish configuration file using this command:
 
 ### To Do
 
-- Featured image doesn't set (slug was "Blogs" in collection and "post" in JSON)
 - Using JSON field twice skips the first field (Was using "title" from json in "title" and "header" in collection and collection's "title" field was empty)
