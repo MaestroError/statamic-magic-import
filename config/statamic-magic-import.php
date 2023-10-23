@@ -23,9 +23,15 @@ return [
     'overwrite_images' => false,
 
     /*
-     * Set images as Asset object instead of path, useful when using DB to store the data
+     * Set images as Asset object, path or ID
+     * Possible values: path, object, id (If none of them is set 'path' will be used)
      */
-    'set_images_as_asset_object' => false,
+    'set_images_as' => "path",
+
+    /*
+     * Sets data in same manner as in CP controller, processing via blueprint's fields
+     */
+    'set_data_using_fields' => false,
 
     /*
      * Filter out meta data keys prefixed with '_'. The default is 'true'.

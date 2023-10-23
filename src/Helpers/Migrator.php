@@ -204,9 +204,11 @@ class Migrator
                     if ($this->isImageUrl($value)) {
                         $asset = $this->downloadAndReturnAsset($key, $value, $collection, $slug);
                         if ($asset) {
-                            $entry->set($key, $asset->path());
+                            // Set asset
+                            $entry = $this->setAsset($entry, $key, $asset);
                         }
                     } else {
+                        $entry = $this->setFieldData($entry, $key, $value);
                         $entry->set($key, $value);
                     }
                 }
@@ -323,6 +325,13 @@ class Migrator
                 if (!$this->summary['collections'][$collection]['entries'][$slug]['_checked']) {
                     continue;
                 }
+                // Skip if collection isn't paired
+                if (!isset($this->collectionPairs[$collection])) {
+                    continue;
+                }
+                if (!$this->collectionPairs[$collection]) {
+                    continue;
+                }
                 // Find existing collection from summary
                 $existingCollection = $this->collectionPairs[$collection];
 
@@ -349,15 +358,11 @@ class Migrator
                             // Download an asset
                             $asset = $this->downloadAndReturnAsset($key, $value, $collection, $slug);
                             if ($asset) {
-                                // Set asset path
-                                if (config('statamic-magic-import.set_images_as_asset_object')) {
-                                    $entry->set($this->collectionFieldPairs[$collection][$key], $asset);
-                                } else {
-                                    $entry->set($this->collectionFieldPairs[$collection][$key], $asset->path());
-                                }
+                                // Set asset
+                                $entry = $this->setAsset($entry, $this->collectionFieldPairs[$collection][$key], $asset);
                             }
                         } else {
-                            $entry->set($this->collectionFieldPairs[$collection][$key], $value);
+                            $entry = $this->setFieldData($entry, $this->collectionFieldPairs[$collection][$key], $value);
                         }
                     }
                 }
@@ -397,5 +402,58 @@ class Migrator
         }
     
         return false;
+    }
+
+    // Set field as in CP controller
+    private function setUsingFields($entry, $key, $value) {
+        $data = [$key => $value];
+
+        $fields = $entry
+            ->blueprint()
+            ->ensureField('published', ['type' => 'toggle'])
+            ->fields()
+            ->addValues($data);
+
+        // $fields->validator()->validate();
+
+        $values = $fields->process()->values();
+
+        $values = $values->except(['slug', 'published']);
+
+        if ($entry->collection()->dated()) {
+            $entry->date($entry->blueprint()->field('date')->fieldtype()->augment($values->pull('date')));
+        }
+
+        if ($entry->hasOrigin()) {
+            $entry->data($values);
+        } else {
+            $entry->merge($values);
+        }
+
+        $entry->save();
+
+        return $entry;
+    }
+
+    // Sets asset by "set_images_as" config
+    private function setAsset($entry, $key, $asset) {
+        if (config('statamic-magic-import.set_images_as') == 'object') {
+            $entry = $this->setFieldData($entry,  $key, $asset);
+        } elseif(config('statamic-magic-import.set_images_as') == 'id') {
+            $entry = $this->setFieldData($entry,  $key, config('statamic-magic-import.assets_container') . "::" . $asset->path());
+        } else {
+            $entry = $this->setFieldData($entry,  $key, $asset->path());
+        }
+        return $entry;
+    }
+
+    // Sets field data by "set_data_using_fields" config
+    private function setFieldData($entry, $key, $value) {
+        if (config('statamic-magic-import.set_data_using_fields')) {
+            $entry = $this->setUsingFields($entry, $key, $value);
+        } else {
+            $entry->set($key, $value);
+        }
+        return $entry;
     }
 }
