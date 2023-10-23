@@ -425,9 +425,9 @@ class Migrator
         }
 
         if ($entry->hasOrigin()) {
-            $entry->data($values);
+            $entry->data($values->only($key));
         } else {
-            $entry->merge($values);
+            $entry->merge($values->only($key));
         }
 
         $entry->save();
