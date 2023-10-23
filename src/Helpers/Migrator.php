@@ -432,7 +432,7 @@ class Migrator
 
         $entry->save();
 
-        return $entry;
+        return $entry->fresh();
     }
 
     // Sets asset by "set_images_as" config
