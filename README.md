@@ -158,6 +158,11 @@ return [
     'overwrite_images' => false,
 
     /*
+     * Set images as Asset object instead of path, useful when using DB to store the data
+     */
+    'set_images_as_asset_object' => false,
+
+    /*
      * Filter out meta data keys prefixed with '_'. The default is 'true'.
      */
     'exclude_underscore_data' => true,

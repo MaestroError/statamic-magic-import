@@ -202,7 +202,7 @@ class Migrator
 
                 foreach ($meta['data'] as $key => $value) {
                     if ($this->isImageUrl($value)) {
-                        $asset = $this->downloadAndSetAsset($key, $value, $collection, $slug);
+                        $asset = $this->downloadAndReturnAsset($key, $value, $collection, $slug);
                         if ($asset) {
                             $entry->set($key, $asset->path());
                         }
@@ -298,6 +298,7 @@ class Migrator
 
             return $asset;
         } catch (Exception $e) {
+            // Log the error
             logger('Image download failed: ' . $e->getMessage());
             return false;
         }
@@ -343,23 +344,30 @@ class Migrator
 
                 foreach ($meta['data'] as $key => $value) {
                     if (isset($this->collectionFieldPairs[$collection][$key]) && $this->collectionFieldPairs[$collection][$key]) {
+                        // If field is image URL
                         if ($this->isImageUrl($value)) {
-                            $asset = $this->downloadAndSetAsset($key, $value, $collection, $slug);
+                            // Download an asset
+                            $asset = $this->downloadAndReturnAsset($key, $value, $collection, $slug);
                             if ($asset) {
-                                $entry->set($this->collectionFieldPairs[$collection][$key], $asset->path());
+                                // Set asset path
+                                if (config('statamic-magic-import.set_images_as_asset_object')) {
+                                    $entry->set($this->collectionFieldPairs[$collection][$key], $asset);
+                                } else {
+                                    $entry->set($this->collectionFieldPairs[$collection][$key], $asset->path());
+                                }
                             }
                         } else {
                             $entry->set($this->collectionFieldPairs[$collection][$key], $value);
                         }
                     }
                 }
-
+                
                 $entry->save();
             }
         }
     }
 
-    private function downloadAndSetAsset($key, $value, $collection, $slug) {
+    private function downloadAndReturnAsset($key, $value, $collection, $slug) {
         if (config('statamic-magic-import.download_images')) {
             $asset = $this->downloadAsset($value, $collection, $slug);
 
