@@ -17,6 +17,10 @@ class ServiceProvider extends AddonServiceProvider
     {
         parent::boot();
 
+        $this->publishes([
+            __DIR__.'/../config/statamic-magic-import.php' => config_path('statamic-magic-import.php'),
+        ]);
+
         Nav::extend(function ($nav) {
             $nav->tools('Magic Import')
                 ->route('json-import.index')

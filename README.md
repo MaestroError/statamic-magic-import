@@ -175,6 +175,10 @@ You can publish it with the command:
 
 `php artisan vendor:publish --tag=statamic-magic-import`
 
+You can publish configuration file using this command:
+
+`php artisan vendor:publish --tag=statamic-magic-import-config`
+
 ### To Do
 
 - Featured image doesn't set (slug was "Blogs" in collection and "post" in JSON)
