@@ -408,27 +408,18 @@ class Migrator
     private function setUsingFields($entry, $key, $value) {
         $data = [$key => $value];
 
+        // Get fields and add values
         $fields = $entry
             ->blueprint()
             ->ensureField('published', ['type' => 'toggle'])
             ->fields()
             ->addValues($data);
 
-        // $fields->validator()->validate();
-
+        // Process values by fields
         $values = $fields->process()->values();
 
-        $values = $values->except(['slug', 'published']);
-
-        if ($entry->collection()->dated()) {
-            $entry->date($entry->blueprint()->field('date')->fieldtype()->augment($values->pull('date')));
-        }
-
-        if ($entry->hasOrigin()) {
-            $entry->data($values->only($key));
-        } else {
-            $entry->merge($values->only($key));
-        }
+        // Merge with entry data
+        $entry->merge($values->only($key));
 
         $entry->save();
 
@@ -438,10 +429,13 @@ class Migrator
     // Sets asset by "set_images_as" config
     private function setAsset($entry, $key, $asset) {
         if (config('statamic-magic-import.set_images_as') == 'object') {
+            // As Asset object
             $entry = $this->setFieldData($entry,  $key, $asset);
         } elseif(config('statamic-magic-import.set_images_as') == 'id') {
-            $entry = $this->setFieldData($entry,  $key, config('statamic-magic-import.assets_container') . "::" . $asset->path());
+            // As array of IDs
+            $entry = $this->setFieldData($entry,  $key, [config('statamic-magic-import.assets_container') . "::" . $asset->path()]);
         } else {
+            // As asset's path
             $entry = $this->setFieldData($entry,  $key, $asset->path());
         }
         return $entry;
