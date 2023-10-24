@@ -34,6 +34,11 @@ return [
     'set_data_using_fields' => false,
 
     /*
+     * In case if you are updating your images path with some suffix, for example ".webp"
+     */
+    'image_suffix' => "",
+
+    /*
      * Filter out meta data keys prefixed with '_'. The default is 'true'.
      */
     'exclude_underscore_data' => true,

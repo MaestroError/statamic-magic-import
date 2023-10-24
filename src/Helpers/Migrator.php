@@ -250,7 +250,7 @@ class Migrator
                 $asset = $this->downloadAsset($meta['data']['featured_image_url'] ?? '', 'pages', $slug);
 
                 if ($asset) {
-                    $page->set('featured_image', $asset->path());
+                    $page->set('featured_image', $asset->path() . config('statamic-magic-import.image_suffix'));
                 }
             }
 
@@ -298,7 +298,7 @@ class Migrator
 
             $asset->save();
 
-            return $asset;
+            return $asset->fresh();
         } catch (Exception $e) {
             // Log the error
             logger('Image download failed: ' . $e->getMessage());
@@ -433,10 +433,10 @@ class Migrator
             $entry = $this->setFieldData($entry,  $key, $asset);
         } elseif(config('statamic-magic-import.set_images_as') == 'id') {
             // As array of IDs
-            $entry = $this->setFieldData($entry,  $key, [config('statamic-magic-import.assets_container') . "::" . $asset->path()]);
+            $entry = $this->setFieldData($entry,  $key, [config('statamic-magic-import.assets_container') . "::" . $asset->path() . config('statamic-magic-import.image_suffix')]);
         } else {
             // As asset's path
-            $entry = $this->setFieldData($entry,  $key, $asset->path());
+            $entry = $this->setFieldData($entry,  $key, $asset->path() . config('statamic-magic-import.image_suffix'));
         }
         return $entry;
     }
