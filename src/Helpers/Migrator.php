@@ -298,7 +298,7 @@ class Migrator
 
             $asset->save();
 
-            return $asset->fresh();
+            return $asset;
         } catch (Exception $e) {
             // Log the error
             logger('Image download failed: ' . $e->getMessage());
