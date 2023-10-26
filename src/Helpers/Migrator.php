@@ -419,7 +419,7 @@ class Migrator
             // Process values by fields
             $values = $fields->process()->values();
         } catch (\Throwable $th) {
-            logger('Image download failed: ' . $th->getMessage());
+            logger('Field processing failed: ' . $th->getMessage());
             return $entry;
         }
 

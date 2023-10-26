@@ -30,6 +30,7 @@ return [
 
     /*
      * Sets data in same manner as in CP controller, processing via blueprint's fields
+     * Skips field if any error occured and logs the error
      */
     'set_data_using_fields' => false,
 
